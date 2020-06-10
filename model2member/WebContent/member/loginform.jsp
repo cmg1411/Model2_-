@@ -8,7 +8,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 
 <!-- 외부 자바스크립트 파일 불러오기 -->
-<script src="member.js"></script>
+<script src="<%=request.getContextPath() %>/member/login.js"></script>
 
 </head>
 <body>
@@ -22,7 +22,7 @@
 	</tr>
 	<tr>
 		<th>비밀번호</th>
-		<td><input type="password" size=30 id="password" name="password"></td>
+		<td><input type="password" size=30 id="passwd" name="passwd"></td>
 	</tr>
 	<tr>
 		<td colspan=2 align=right>

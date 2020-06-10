@@ -19,10 +19,11 @@ $(document).ready(function(){
 //					alert(data);
 					
 					if(data==1){	// 중복 ID
-						$("#myid").text("중복ID");
+						$("#myid").text("중복된 ID입니다.");
+						$("#myid").css("color", "red");
 						$("#id").val("").focus();
 					}else{			// 사용 가능한 ID
-						$("#myid").text("사용 가능한 ID");
+						$("#myid").text("사용 가능한 ID입니다.");
 						$("#passwd").focus();
 					}					
 				}
@@ -65,7 +66,7 @@ $(document).ready(function(){
 	
 	// 도메인 선택
 	$("#email").change(function(){
-		if($("select").val() == ""){	// 직접 입력 선택	
+		if($("#email").val() == ""){	// 직접 입력 선택	
 //			$("#domain").attr("readonly", false);
 			$("#domain").removeAttr("readonly");
 			$("#domain").val("").focus();			

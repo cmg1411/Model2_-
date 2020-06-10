@@ -27,7 +27,7 @@
 
 
 <!-- 외부 자바스크립트 파일 불러오기 -->
-<script src="member.js"></script>
+<script src="<%=request.getContextPath() %>/member/member.js"></script>
 
 </head>
 <body>

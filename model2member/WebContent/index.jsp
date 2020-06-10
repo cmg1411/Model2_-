@@ -8,7 +8,7 @@
 </head>
 <body>
 	<script>
-		location.href="./.do";
+		location.href="./LoginForm.do";
 	</script>
 </body>
 </html>

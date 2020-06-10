@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import service.Action;
 import service.ActionForward;
 import service.Idcheck;
+import service.Login;
 import service.MemberInsert;
+import service.UpdateMember;
 
 
 @WebServlet("*.do")
@@ -57,10 +59,43 @@ public class MemberController extends HttpServlet {
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
+		//로그인 회원인증
+		}else if(command.equals("/Login.do")) {
+			try {
+				action = new Login();
+				actionforward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		//로그인 폼
+		}else if(command.equals("/LoginForm.do")) {
+			try {
+				actionforward = new ActionForward();
+				actionforward.setRedirect(false);
+				actionforward.setPath("/member/loginform.jsp");
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		//로그아웃
+		}else if(command.equals("/Logout.do")) {
+			try {
+				actionforward = new ActionForward();
+				actionforward.setRedirect(false);
+				actionforward.setPath("/member/logout.jsp");
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		//회원정보수정
+		}else if(command.equals("/UpdateMember.do")) {
+			try {
+				action = new UpdateMember();
+				actionforward = action.execute(request, response);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
-		
-		
-		
+				
+				
 		if(actionforward != null) {
 			if(actionforward.isRedirect()) { //redirect 방식으로 포워딩
 				response.sendRedirect(actionforward.getPath());

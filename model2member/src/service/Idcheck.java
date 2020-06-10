@@ -1,5 +1,7 @@
 package service;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,15 +17,17 @@ public class Idcheck implements Action{
 		request.setCharacterEncoding("utf-8");
 		
 		String id = request.getParameter("id");
-		System.out.println(id);
+		System.out.println("id : "+id);
 		
 		MemberDAO dao = new MemberDAO();
-		boolean result = dao.idcheck(id);
+		int result = dao.idcheck(id);
+		System.out.println("sql result : " + result);
+		//1 - 중복아이디, -1 - 사용가능아이디
 		
-		ActionForward forward = new ActionForward();
-		forward.setRedirect(false);
-		forward.setPath("/member/loginform.jsp");
-		return forward;
+		PrintWriter out = response.getWriter();
+		out.println(result); // 비동기 ajax로 요청했기 때문에 브라우저로 callback함수를 이용해서 반환.
+		
+		return null;
 	}
 
 }

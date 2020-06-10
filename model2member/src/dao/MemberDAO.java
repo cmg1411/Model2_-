@@ -67,29 +67,98 @@ public class MemberDAO {
 		return result;
 	}
 	
-	public boolean idcheck(String id) {
+	public int idcheck(String id) {
 		ResultSet res = null;
-		boolean result = false;
+		int result = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
 		try {
 			conn = getConnection();
 			
-			String sql = "select count(id) from member0609 where id=?";
+			String sql = "select id from member0609 where id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			
 			res = pstmt.executeQuery();
 			
-			if(res!=null)
-				result = false;
+			if(res.next())
+				result = 1; // 중복아이디
 			else
-				result = true;
+				result = -1; //사용가능아이디
 			
 		} catch(Exception e) {
 			
 		} finally {
+			if(res!=null) {try{res.close();}catch(Exception e){e.printStackTrace();}}
+			if(pstmt!=null) {try{pstmt.close();}catch(Exception e){e.printStackTrace();}}
+			if(conn!=null) {try{conn.close();}catch(Exception e){e.printStackTrace();}}
+		}
+		
+		return result;
+	}
+	
+	public int memberAuth(String id, String passwd) {
+		
+		int result = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "select * from member0609 where id=? and passwd=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, passwd);
+			
+			res = pstmt.executeQuery();
+			
+			if(res.next()) { // 회원인증
+				result = 1;
+			}else { // 회원없음
+				result = -1;
+			}
+			
+		} catch(Exception e) {
+			
+		} finally {
+			if(res!=null) {try{res.close();}catch(Exception e){e.printStackTrace();}}
+			if(pstmt!=null) {try{pstmt.close();}catch(Exception e){e.printStackTrace();}}
+			if(conn!=null) {try{conn.close();}catch(Exception e){e.printStackTrace();}}
+		}
+		
+		return result;
+	}
+	
+public int memberUpdate(String id) {
+		
+		int result = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "select * from member0609 where id=? and passwd=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, passwd);
+			
+			res = pstmt.executeQuery();
+			
+			if(res.next()) { // 회원인증
+				result = 1;
+			}else { // 회원없음
+				result = -1;
+			}
+			
+		} catch(Exception e) {
+			
+		} finally {
+			if(res!=null) {try{res.close();}catch(Exception e){e.printStackTrace();}}
 			if(pstmt!=null) {try{pstmt.close();}catch(Exception e){e.printStackTrace();}}
 			if(conn!=null) {try{conn.close();}catch(Exception e){e.printStackTrace();}}
 		}
