@@ -132,8 +132,8 @@ public class MemberDAO {
 		return result;
 	}
 	
-public int memberUpdate(String id) {
-		
+	public MemberDTO getmember(String id) {
+		MemberDTO dto = new MemberDTO();
 		int result = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -142,17 +142,35 @@ public int memberUpdate(String id) {
 		try {
 			conn = getConnection();
 			
-			String sql = "select * from member0609 where id=? and passwd=?";
+			String sql = "select * from member0609 where id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
-			pstmt.setString(2, passwd);
 			
 			res = pstmt.executeQuery();
 			
 			if(res.next()) { // 회원인증
-				result = 1;
+				dto.setId(res.getString("id"));
+				dto.setPasswd(res.getString("passwd"));
+				dto.setName(res.getString("name"));
+				dto.setJumin1(res.getString("jumin1"));
+				dto.setJumin2(res.getString("jumin2"));
+				dto.setMailid(res.getString("mailid"));
+				dto.setDomain(res.getString("domain"));
+				dto.setTel1(res.getString("tel1"));
+				dto.setTel2(res.getString("tel2"));
+				dto.setTel3(res.getString("tel3"));
+				dto.setPhone1(res.getString("phone1"));
+				dto.setPhone2(res.getString("phone2"));
+				dto.setPhone3(res.getString("phone3"));
+				dto.setPost(res.getString("post"));
+				dto.setAddress(res.getString("address"));
+				dto.setGender(res.getString("gender"));
+				dto.setHobby(res.getString("hobby"));
+				dto.setIntro(res.getString("intro"));
+				dto.setTimestamp(res.getTimestamp("timestamp"));
+				
 			}else { // 회원없음
-				result = -1;
+				return null;
 			}
 			
 		} catch(Exception e) {
@@ -163,6 +181,52 @@ public int memberUpdate(String id) {
 			if(conn!=null) {try{conn.close();}catch(Exception e){e.printStackTrace();}}
 		}
 		
+		return dto;
+	}
+	
+	//수정
+	public int update(MemberDTO member) {
+		
+		int result = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "update member0609 set name=?, jumin1=?, jumin2=?, mailid=?, domain=?";
+			sql+="tel1=?, tel2=?, tel3=?, phone1=?, phone2=?, phone3=?, post=?, address=?,";
+			sql+="gender=?, hobby=?, intro=? where id=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, member.getName());
+			pstmt.setString(2, member.getJumin1());
+			pstmt.setString(3, member.getJumin2());
+			pstmt.setString(4, member.getMailid());
+			pstmt.setString(5, member.getDomain());
+			pstmt.setString(6, member.getTel1());
+			pstmt.setString(7, member.getTel2());
+			pstmt.setString(8, member.getTel3());
+			pstmt.setString(9, member.getPhone1());
+			pstmt.setString(10, member.getPhone2());
+			pstmt.setString(11, member.getPhone3());
+			pstmt.setString(12, member.getPost());
+			pstmt.setString(13, member.getAddress());
+			pstmt.setString(14, member.getGender());
+			pstmt.setString(15, member.getHobby());
+			pstmt.setString(16, member.getIntro());
+			pstmt.setString(17, member.getId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			
+		} finally {
+			if(pstmt!=null) {try{pstmt.close();}catch(Exception e){e.printStackTrace();}}
+			if(conn!=null) {try{conn.close();}catch(Exception e){e.printStackTrace();}}
+		}
+		
 		return result;
 	}
+	 
 }

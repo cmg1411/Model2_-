@@ -14,6 +14,7 @@ import service.ActionForward;
 import service.Idcheck;
 import service.Login;
 import service.MemberInsert;
+import service.Update;
 import service.UpdateMember;
 
 
@@ -85,13 +86,21 @@ public class MemberController extends HttpServlet {
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
-		//회원정보수정
+		//회원정보 수정 폼
 		}else if(command.equals("/UpdateMember.do")) {
 			try {
 				action = new UpdateMember();
 				actionforward = action.execute(request, response);
 			} catch(Exception e) {
 				e.printStackTrace();
+			}
+		//회원정보 수정
+		}else if(command.equals("/Update.do")) {
+			try {
+				action = new Update();
+				actionforward = action.execute(request, response);
+				} catch(Exception e) {
+					e.printStackTrace();
 			}
 		}
 				

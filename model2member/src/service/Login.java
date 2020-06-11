@@ -36,6 +36,8 @@ public class Login implements Action{
 			out.println("history.go(-1);");
 			out.println("</script>");
 			out.flush();
+			
+			return null;
 		}
 		
 
