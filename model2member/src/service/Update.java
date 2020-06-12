@@ -14,8 +14,8 @@ public class Update implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println(this.getClass().getName());
 		
-		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
+		request.setCharacterEncoding("utf-8");
 		
 		PrintWriter out = response.getWriter();
 		
@@ -49,10 +49,12 @@ public class Update implements Action{
 		
 		if(old.getPasswd().equals(member.getPasswd())) { //비번 일치시
 			int result = dao.update(member);
+			System.out.println(result);
 			if(result==1)System.out.println("회원수정 성공");
+			else System.out.println("수정실패");
 		}else {
 			out.println("<script>");
-			out.println("alert('비밀번호 불일치');");
+			out.println("alert('비밀번호 불일치.');");
 			out.println("history.go(-1);");
 			out.println("</script>");
 			out.flush();

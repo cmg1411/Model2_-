@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.Action;
 import service.ActionForward;
+import service.Delete;
 import service.Idcheck;
 import service.Login;
 import service.MemberInsert;
@@ -102,8 +103,22 @@ public class MemberController extends HttpServlet {
 				} catch(Exception e) {
 					e.printStackTrace();
 			}
+			
+		// 회원탈퇴 폼	
+		}else if(command.equals("/DeleteMember.do")) {
+			actionforward = new ActionForward();
+			actionforward.setRedirect(false);
+			actionforward.setPath("/member/deleteform.jsp");
+					
+		// 회원탈퇴	
+		}else if(command.equals("/Delete.do")) {
+			try {
+				action = new Delete();
+				actionforward = action.execute(request, response);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
-				
 				
 		if(actionforward != null) {
 			if(actionforward.isRedirect()) { //redirect 방식으로 포워딩

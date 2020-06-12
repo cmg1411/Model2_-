@@ -7,7 +7,7 @@
 	
 	<a href="<%=request.getContextPath() %>/UpdateMember.do">회원정보수정 </a><br><br>
 	<a href="<%=request.getContextPath() %>/Logout.do">로그아웃 </a><br><br>
-	<a href="">회원탈퇴 </a><br><br>
+	<a href="<%=request.getContextPath() %>/DeleteMember.do"">회원탈퇴 </a><br><br>
 </c:if>
 
 <c:if test="${sessionScope.id == null}">

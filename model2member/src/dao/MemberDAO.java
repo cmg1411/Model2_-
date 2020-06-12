@@ -134,7 +134,6 @@ public class MemberDAO {
 	
 	public MemberDTO getmember(String id) {
 		MemberDTO dto = new MemberDTO();
-		int result = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet res = null;
@@ -169,8 +168,6 @@ public class MemberDAO {
 				dto.setIntro(res.getString("intro"));
 				dto.setTimestamp(res.getTimestamp("timestamp"));
 				
-			}else { // 회원없음
-				return null;
 			}
 			
 		} catch(Exception e) {
@@ -194,7 +191,7 @@ public class MemberDAO {
 		try {
 			conn = getConnection();
 			
-			String sql = "update member0609 set name=?, jumin1=?, jumin2=?, mailid=?, domain=?";
+			String sql = "update member0609 set name=?, jumin1=?, jumin2=?, mailid=?, domain=?,";
 			sql+="tel1=?, tel2=?, tel3=?, phone1=?, phone2=?, phone3=?, post=?, address=?,";
 			sql+="gender=?, hobby=?, intro=? where id=?";
 			
@@ -229,4 +226,29 @@ public class MemberDAO {
 		return result;
 	}
 	 
+	//삭제
+		public int delete(String id) {
+			int result = 0;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			
+			try {
+				conn = getConnection();
+				
+				String sql = "delete from member0609 where id=?";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+
+				result = pstmt.executeUpdate();
+				
+			} catch(Exception e) {
+				
+			} finally {
+				if(pstmt!=null) {try{pstmt.close();}catch(Exception e){e.printStackTrace();}}
+				if(conn!=null) {try{conn.close();}catch(Exception e){e.printStackTrace();}}
+			}
+			
+			return result;
+		}
 }

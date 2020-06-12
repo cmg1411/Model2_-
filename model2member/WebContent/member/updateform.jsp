@@ -24,7 +24,7 @@
 				
 			}
 		}).open();
-	}
+	};
 </script>
 
 
@@ -38,7 +38,7 @@
 <table border=1 width=500 align=center>
 	<caption>회원 수정</caption>
 	<tr><td>ID</td>
-		<td><input type=text autofocus="autofocus" id="id" name="id" value = ${member.id } disabled="disabled">
+		<td><input type=text autofocus="autofocus" id="id" name="id" value = ${member.id } readonly="true">
 			<input type=button value="ID중복검사" id="idcheck" disabled="disabled">
 			<div id="myid"></div>
 		</td>
@@ -87,13 +87,13 @@
 		
 	</tr>
 	<tr><td>우편번호</td>
-		<td><input type=text size=5 id="post" name="post" value='${member.post}'>
+		<td><input type=text size=5 id="post" name="post" value="${member.post}">
 			<input type=button value="우편번호검색" 
 			       onClick="openDaumPostcode()">
 		</td>
 	</tr>
 	<tr><td>주소</td>
-		<td><input type=text size=45 id="address" name="address" value = ${member.address }></td>
+		<td><input type=text size=45 id="address" name="address" value ="${member.address }"></td>
 	</tr>
 	<tr><td>성별</td>
 		<c:if test="${member.gender == '남자'}">
@@ -110,15 +110,32 @@
 		</c:if>
 	</tr>
 	<tr><td>취미</td>
-		<c:forEach var="h1" items="${h}">
 		<td>
-			<input type="checkbox" id="h1" name="hobby" value="공부" <c:if test="${h1=='공부'}">${'checked' }</c:if>>공부
-			<input type="checkbox" id="h2" name="hobby" value="게임" <c:if test="${h1=='게임'}">${'checked' }</c:if>>게임
-			<input type="checkbox" id="h3" name="hobby" value="등산" <c:if test="${h1=='등산'}">${'checked' }</c:if>>등산
-			<input type="checkbox" id="h4" name="hobby" value="낚시" <c:if test="${h1=='낚시'}">${'checked' }</c:if>>낚시
-			<input type="checkbox" id="h5" name="hobby" value="쇼핑" <c:if test="${h1=='쇼핑'}">${'checked' }</c:if>>쇼핑
+			<input type="checkbox" id="h1" name="hobby" value="공부" 
+			<c:forEach var="h1" items="${h}">
+				<c:if test="${h1=='공부'}">${'checked' }</c:if>
+			</c:forEach>>공부
+			
+			<input type="checkbox" id="h2" name="hobby" value="게임" 
+			<c:forEach var="h1" items="${h}">
+			<c:if test="${h1=='게임'}">${'checked' }</c:if>
+			</c:forEach>>게임
+			
+			<input type="checkbox" id="h3" name="hobby" value="등산" 
+			<c:forEach var="h1" items="${h}">
+			<c:if test="${h1=='등산'}">${'checked' }</c:if>
+			</c:forEach>>등산
+			
+			<input type="checkbox" id="h4" name="hobby" value="낚시" 
+			<c:forEach var="h1" items="${h}">
+			<c:if test="${h1=='낚시'}">${'checked' }</c:if>
+			</c:forEach>>낚시
+			
+			<input type="checkbox" id="h5" name="hobby" value="쇼핑" 
+			<c:forEach var="h1" items="${h}">
+			<c:if test="${h1=='쇼핑'}">${'checked' }</c:if>
+			</c:forEach>>쇼핑
 		</td>
-		</c:forEach>
 	</tr>	
 	<tr><td>자기소개</td>
 		<td>
@@ -128,7 +145,8 @@
 	</tr>
 	<tr><td colspan=2 align=center>
 			<input type=submit value="회원 수정">
-			<input type=reset value="취소">
+			<input type=reset value="실행취소">
+			<input type=button id="back" name="back" value="뒤로가기">
 		</td>
 	</tr>		
 </table>
@@ -136,4 +154,9 @@
 
 
 </body>
+<script>
+$('#back').click(function(){
+	history.go(-1);
+});
+</script>
 </html>
