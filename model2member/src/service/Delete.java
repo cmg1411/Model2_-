@@ -33,11 +33,6 @@ public class Delete implements Action{
 			System.out.println(result);
 			if(result == 1) System.out.println("회원삭제 성공");
 			
-			out.println("<script>");	
-			out.println("alert('회원 삭제 성공.');");
-			out.println("</script>");	
-			out.close();
-			
 			session.invalidate();               // 세션 삭제
 			
 		}else {									// 비번 불일치시
